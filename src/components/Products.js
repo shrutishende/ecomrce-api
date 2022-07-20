@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
 
-//import Skeleton from "react-loading-skeleton";
-
 const Products = () => {
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
