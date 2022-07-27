@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
+import { add } from "../redux/feature/cart/cartSlice";
 
 const ProductDetail = () => {
+    const dispatch = useDispatch();
+
     const { id } = useParams();
 
     const [product, setProduct] = useState([]);
@@ -27,6 +31,10 @@ const ProductDetail = () => {
     //         </>
     //     );
     // };
+    const handleAdd = (product) => {
+        dispatch(add(product));
+    };
+
     const ShowProduct = () => {
         return (
             <>
@@ -51,7 +59,10 @@ const ProductDetail = () => {
                         $ {product.price}
                     </h3>
                     <p className="lead">{product.description}</p>
-                    <button className="btn btn-outline-dark px-4 py-2">
+                    <button
+                        className="btn btn-dark px-4 py-2"
+                        onClick={() => handleAdd(product)}
+                    >
                         Add to Cart
                     </button>
 
