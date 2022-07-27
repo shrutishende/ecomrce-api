@@ -7,7 +7,9 @@ const Products = () => {
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
 
-    let componentMounted = true;
+    const [componentMounted, setComponentMounted] = useState(true);
+
+    // let componentMounted = true;
 
     useEffect(() => {
         const getProducts = async () => {
@@ -22,11 +24,12 @@ const Products = () => {
                 console.log(filter);
             }
             return () => {
-                componentMounted = false;
+                // componentMounted = false;
+                setComponentMounted(false);
             };
         };
         getProducts();
-    }, []);
+    });
 
     const Loading = () => {
         return <h1>Loading....</h1>;
