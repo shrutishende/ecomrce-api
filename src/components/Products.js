@@ -2,34 +2,49 @@ import React, { useEffect, useState } from "react";
 
 import { NavLink } from "react-router-dom";
 
+import axios from "axios";
+
 const Products = () => {
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
 
-    const [componentMounted, setComponentMounted] = useState(true);
+    const getProducts = async () => {
+        setLoading(true);
+        const response = await axios
+            .get("https://fakestoreapi.com/products")
+            .catch((err) => {
+                console.log("erooorrrrr");
+            });
+        console.log(response.data);
+        setData(response.data);
+        setFilter(response.data);
+        setLoading(false);
+    };
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     // let componentMounted = true;
 
-    useEffect(() => {
-        const getProducts = async () => {
-            setLoading(true);
+    // useEffect(() => {
+    //     const getProducts = async () => {
+    //         setLoading(true);
 
-            const response = await fetch("https://fakestoreapi.com/products");
+    //         const response = await fetch("https://fakestoreapi.com/products");
 
-            if (componentMounted) {
-                setData(await response.clone().json());
-                setFilter(await response.json());
-                setLoading(false);
-                console.log(filter);
-            }
-            return () => {
-                // componentMounted = false;
-                setComponentMounted(false);
-            };
-        };
-        getProducts();
-    });
+    //         if (componentMounted) {
+    //             setData(await response.clone().json());
+    //             setFilter(await response.json());
+    //             setLoading(false);
+    //             // console.log(filter);
+    //         }
+    //         return () => {
+    //             componentMounted = false;
+    //         };
+    //     };
+    //     getProducts();
+    // });
 
     const Loading = () => {
         return <h1>Loading....</h1>;
